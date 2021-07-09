@@ -70,7 +70,7 @@ def test_model(model, test_ds):
 
     model.eval()
     with torch.no_grad():
-        for n, (inp, tar) in enumerate(TEST_DATASET):
+        for n, (inp, tar) in enumerate(test_ds):
             inp = inp.cuda()
             # out = best_model(input).cpu().numpy()
             out = model(inp).cpu().numpy()
