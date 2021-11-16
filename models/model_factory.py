@@ -75,12 +75,12 @@ class Model(nn.Module):
         tar = torch.argmax(tar, dim=1)
         
         if self.apply_mixup:
-            output = self.model(inp)
-            loss   = self.loss_fn(output, tar)    
-        else:
             inp, tar_a, tar_b, lam = self.mixup(inp, tar)
             output = self.model(inp)
             loss = self.mixup_loss(output, tar_a, tar_b, lam)
+        else:
+            output = self.model(inp)
+            loss   = self.loss_fn(output, tar)    
         
         self.optimizer.zero_grad()
         loss.backward()
